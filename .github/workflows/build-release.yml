@@ -31,6 +31,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Sync Package Version From Tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Use tag version: $VERSION"
+          for FILE in core/Makefile status/Makefile geodata/Makefile; do
+            sed -i -E "s/^PKG_VERSION:=.*/PKG_VERSION:=${VERSION}/" "$FILE"
+            grep '^PKG_VERSION:=' "$FILE"
+          done
+
       - name: Prepare Cache Key
         id: cache_key
         run: echo "::set-output name=timestamp::$(date +"%s")"
