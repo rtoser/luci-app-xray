@@ -32,13 +32,23 @@ Choose one below:
 
 Then find `luci-app-xray` under `Extra Packages`.
 
-## Installation (Use GitHub actions to build ipks)
+## Local build with Docker
+
+For macOS or other non-Linux hosts, use the Docker wrapper:
+
+* Run `./scripts/build-openwrt-sdk-docker.sh`
+* Cache is kept under `~/.cache/luci-app-xray` by default, including SDK archive, extracted SDK, `dl`, `feeds` and apt cache
+* Generated packages are kept under `~/.cache/luci-app-xray/out/<openwrt-version>-<target>-<subtarget>/` by default
+* You can pass build flags through, for example `./scripts/build-openwrt-sdk-docker.sh --refresh-feeds --jobs 8`
+
+## Installation (Use GitHub actions to build packages)
 
 Fork this repository and:
 
 * Create a release by pushing a tag
 * Wait until actions finish
-* Use `opkg -i *` to install all ipks from Releases.
+* OpenWrt 24.10.x and earlier use `.ipk`: install with `opkg -i ./*.ipk`
+* OpenWrt 25.12.x uses `.apk`: install with `apk add --allow-untrusted ./*.apk`
 
 ## Enable preview app
 

@@ -566,7 +566,7 @@ return view.extend({
         o.depends("transparent_default_port_policy", "forwarded");
         o.datatype = "portrange";
 
-        o = s.taboption('outbound_routing', form.DynamicList, "wan_bp_udp_ports", _("Bypassed UDP Ports"), _("Requests to these UDP Ports won't be forwarded through Xray."));
+        o = s.taboption('outbound_routing', form.DynamicList, "wan_bp_udp_ports", _("Bypassed UDP Ports"), _("Requests to these UDP destination ports won't be forwarded through Xray. This is the preferred way to let LAN devices use their own WireGuard or other fixed-port UDP VPN clients. Example: <code>51820</code>."));
         o.depends("transparent_default_port_policy", "forwarded");
         o.datatype = "portrange";
 
